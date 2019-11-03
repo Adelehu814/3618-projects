@@ -1,0 +1,14 @@
+---
+title: "3618 project"
+output: html_document
+---
+
+```{r}
+x <- c(1, 2, 3, 4, 5, 6)
+y <- c(7, 8, 9, 10, 11, 12)
+rownames = c("Ghost", "Witchcraft")
+colnames = c("Jelly Bean", "Snickers", "KitKat", "Gumdrops", "Skittles", "Twizzlers")
+dimnames = list(rownames, colnames)
+halloween <- matrix(c(x, y), ncol=6, nrow=2, byrow=TRUE, dimnames=dimnames)
+halloween
+```
