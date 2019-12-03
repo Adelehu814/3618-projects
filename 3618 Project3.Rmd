@@ -1,0 +1,43 @@
+---
+title: "3618 Project3"
+author: Sunny Zhou, Adele Hu, Vanessa Lei
+output: html_document
+---
+
+```{r}
+# Initialization.
+n <- 10   # the number of years
+C <- 10000   # the par and redemption value for the bond
+r <- 0.06   # annual coupon rate
+i <- 0.04   # nominal annual rate, convertible semiannually
+
+#Calculate Semiannually effective rate and coupon rate and Number periods
+a <- r / 2   # semiannually coupon rate
+number_periods <- n * 2   # total periods
+j <- i / 2   # emiannually effective rate
+
+# Calculate Coupon size and Price of the bond
+coupon_size <- C * a
+P <- C * a * ((1 - (1 / (1 + j)) ^ number_periods) / j) + C * (1 / (1 + j)) ^ number_periods   # Price
+book_value <- P
+
+# Set the matrix
+x <- c(0, 0, P)
+amortization_table <- matrix(0, 1 + number_periods, 3)
+amortization_table[1, ] <- x
+
+#for the loop
+for (time in 1:number_periods) {
+  interest_payment = book_value * j
+  principal_payment = coupon_size - interest_payment
+  book_value = book_value - principal_payment
+  amortization_table[time + 1,] <- c(interest_payment, principal_payment, book_value)
+}
+
+# Label the rows and columns.
+rownames(amortization_table) = c("t", 1:number_periods)
+colnames(amortization_table) = c("Interest Payment", "Principle Payment", "Book Value")
+
+#Show the table
+print(amortization_table)
+```
